@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<!-- zingchart CDN -->
+<script src="https://cdn.zingchart.com/zingchart.min.js"></script>
+
+<!-- Ajax CDN needed to call chart data-->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
+<h1 class="mb-5 text-center">{{ question.question_text }}</h1>
+
+<ul class="list-group mb-5">
+    {% for choice in question.choice_set.all %}
+        <li class="list-group-item">
+            {{ choice.choice_text }} <span class="badge bg-success float-end">
+                {{ choice.votes }} vote{{ choice.votes | pluralize }}</span>
+        </li>
+    {% endfor %}
+</ul>
+
+<!-- Adding an empty div with an id so that zingchart will know where to put our chart -->
+<div id="myChart"></div>
+
+<a class="btn btn-secondary" href="{% url 'index' %}">Back To Polls</a>
+<a class="btn btn-dark" href="{% url 'detail' question.pk %}">Vote Again?</a>
+
+
+{% endblock content %}
